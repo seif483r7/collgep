@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="شرح احترافي لـ Drop Shipping مع تصميم حديث وتأثيرات متقدمة باستخدام GSAP.">
+  <meta name="keywords" content="Drop Shipping, تصميم احترافي, GSAP, تكنولوجيا, التجارة الإلكترونية">
+  <title>Seif-web</title>
+  <!-- خط جوجل -->
+  <link href="https://fonts.googleapis.com/css?family=Cairo:400,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome للأيقونات -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Bootstrap CSS (نسخة RTL) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet" crossorigin="anonymous">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    :root {
+      --primary-color: #1e3c72;
+      --secondary-color: #2a5298;
+      --accent-color: #E4405F;
+      --light-bg: #f9f9f9;
+      --dark-bg: #333;
+      --text-color: #444;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: var(--light-bg);
+      overflow-x: hidden;
+      transition: opacity 0.5s ease;
+    }
+    /* زر تبديل اللغة */
+    .lang-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--secondary-color);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1100;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .lang-toggle:hover {
+      transform: scale(1.1);
+    }
+    /* الهيدر مع فيديو خلفية */
+    header {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+    header video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      filter: brightness(0.6);
+    }
+    header .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      z-index: 1;
+    }
+    header .header-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    header p {
+      font-size: 1.5rem;
+    }
+    /* شريط التنقل */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1050;
+      background: rgba(30,60,114, 0.9);
+      backdrop-filter: blur(8px);
+    }
+    nav .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    nav .nav-link {
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+    nav .nav-link:hover {
+      color: var(--accent-color);
+    }
+    /* الأقسام الرئيسية */
+    section {
+      padding: 80px 20px;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+    /* قسم المحتوى */
+    #content p {
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--text-color);
+      text-align: center;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      max-width: 900px;
+      margin: auto;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    /* قسم فريق العمل */
+    #team .team-member {
+      text-align: center;
+      margin-bottom: 30px;
+      transition: transform 0.3s;
+    }
+    #team .team-member:hover {
+      transform: translateY(-10px);
+    }
+    #team .team-member img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--secondary-color);
+      margin-bottom: 15px;
+    }
+    #team .team-member h5 {
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+    /* قسم المالك */
+    #owner {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+    #owner p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+    .social-icons {
+      margin-top: 20px;
+    }
+    .social-icons a {
+      margin: 0 15px;
+      font-size: 2.2rem;
+      transition: transform 0.3s;
+      color: #fff;
+    }
+    .social-icons a.facebook { color: #3b5998; }
+    .social-icons a.instagram { color: #E4405F; }
+    .social-icons a.whatsapp { color: #25D366; }
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+    .team ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .team li {
+      background: #f1f1f1;
+      margin: 10px;
+      padding: 15px 20px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .team li:hover {
+      transform: scale(1.05);
+    }
+    /* الفوتر */
+    footer {
+      background: var(--dark-bg);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- زر تبديل اللغة -->
+  <button class="lang-toggle" onclick="switchLanguage()">English</button>
+  
+  <!-- شريط التنقل -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Team Drop Shipping</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="تبديل التنقل">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#content">المحتوى</a></li>
+          <li class="nav-item"><a class="nav-link" href="#team">فريق العمل</a></li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- الهيدر مع فيديو خلفية -->
+  <header>
+    <video autoplay muted loop playsinline>
+      <!-- استبدل برابط فيديو خلفية مناسب -->
+      <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+      متصفحك لا يدعم تشغيل الفيديو.
+    </video>
+    <div class="overlay"></div>
+    <div class="header-content">
+      <h1>شرح الـ Drop Shipping</h1>
+      <p>طريقة مبتكرة للتجارة الإلكترونية بدون مخزون</p>
+    </div>
+  </header>
+  
+  <!-- المحتوى الرئيسي -->
+  <main class="container">
+    <!-- قسم المحتوى -->
+    <section id="content" class="animate_animated animate_fadeInUp">
+      <h2 class="section-title">ما هو الـ Drop Shipping؟</h2>
+      <p>
+        يُتيح لك نموذج الـ Drop Shipping بيع المنتجات عبر الإنترنت دون الحاجة لتخزينها بنفسك.
+        تعمل كوسيط بين المورد والعميل، حيث يقوم المورد بشحن المنتج مباشرةً عند الطلب، مما يقلل التكاليف والمخاطر.
+      </p>
+      <div class="video-container animate_animated animate_zoomIn">
+        <!-- استبدل URZ8VlgBrwE بمعرف الفيديو المناسب -->
+        <iframe src="https://www.youtube.com/embed/URZ8VlgBrwE?autoplay=1&mute=1&loop=1&playlist=URZ8VlgBrwE" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </section>
+    
+   
+      </div>
+    </section>
+    
+    <section id="team" class="section animate_animated animate_fadeInUp">
+      <h2>Team Members</h2>
+      <ul class="team">
+        <li class="animate_animated animate_flipInX">Seif Ayman abdallah</li>
+        <li class="animate_animated animate_flipInX">Abdelrahman mohamed ahmed</li>
+        <li class="animate_animated animate_flipInX">Gamal mohamed ashor</li>
+        <li class="animate_animated animate_flipInX">habiba ashraf elsayed</li>
+        <li class="animate_animated animate_flipInX">shahd adly gaber</li>
+      </ul>
+    </section>
+    </div>
+  </section>
+    </section>
+  </main>
+  
+  <!-- الفوتر -->
+  <footer>
+    <div class="container">
+      <p>&copy; Seif 2025. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <!-- GSAP and ScrollTrigger for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
+  <script>
+    // تطبيق تأثيرات GSAP عند التمرير لكل قسم
+    gsap.utils.toArray('section').forEach(section => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%"
+        }
+      });
+    });
+    // زر تبديل اللغة: الانتقال إلى النسخة الإنجليزية
+    function switchLanguage() {
+      gsap.to("body", {opacity: 0, duration: 0.5, onComplete: function(){
+          window.location.href = "seif.html";
+      }});
+    }
+  </script>
+</body>
+</html>
